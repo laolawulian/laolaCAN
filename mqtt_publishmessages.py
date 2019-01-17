@@ -15,7 +15,7 @@ def on_message(client,userdata,msg):
 if __name__ == '__main__':
     client_id = "20190115102204"    #在开放平台添加勾选MQTT协议的应用产生的client_id
     client = mqtt.Client(client_id) 
-    client.username_pw_set("5c24aa007144e","7eb8a30cd841a06d78597dcf62b0623a")
+    client.username_pw_set("xxxxxxxxxxxxxxxx","xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(HOST,PORT,60)
@@ -46,10 +46,10 @@ if __name__ == '__main__':
     qos=1,retain=False)
 
 # 方式二：向终端发送下行消息数据
-    # publish.single("application/dd1f46a34d07b09b/node/0011000010ffffff/tx",
-    # payload='{"confirmed":true,"data":"'+base64data+'","devEUI":"0011000010ffffff","fPort":'+fport01+',"reference":"'+str01+'"}',
+    # publish.single("application/[appEUI]/node/[devEUI]/tx",
+    # payload='{"confirmed":true,"data":"'+base64data+'","devEUI":"xxxxxxxxxxxxxxxx","fPort":'+fport01+',"reference":"'+str01+'"}',
     # qos=1,hostname=HOST,port=PORT,client_id=client_id,
-    # auth={'username':"5b88a88600199",'password':"C24AA8C0B40981E028185B69CFA7E4AA"})
+    # auth={'username':"xxxxxxxxxxxxxxxx",'password':"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"})
 
     
     
