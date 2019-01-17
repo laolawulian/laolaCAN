@@ -30,7 +30,7 @@ def refresh_token(func):
 def add_headers(func,send_method,bodyStr,AppEUI,AppSecret):
     host = HOST
     t = str(int(time.time()))
-    pyloads = json.dumps(pyload)
+    pyloads = json.dumps(bodyStr)
 
 #LOLA-ACCESS-SIGNATURE加密
     str1 = ('%s%s%s%s%s')%(t,send_method,host,pyloads,AppSecret)
@@ -48,7 +48,13 @@ def add_headers(func,send_method,bodyStr,AppEUI,AppSecret):
 def add_downlink(func,bodyStr,devEUI):
     url="http://"+HOST+"/openapi/devices/tx/"+devEUI
     r=requests.post(url,headers=func,data=bodyStr)
-    print ("-----自定义下行数据-----'\n'",r.text)   
+    print ("-----自定义下行数据-----'\n'",r.text)  
+
+#4.4自定义下行数据终止接口
+def stop_downlink(func,bodyStr,devEUI):
+    url="http://"+HOST+"/openapi/devices/tx/"+devEUI
+    r=requests.delete(url,headers=func,data=bodyStr)
+    print ("-----自定义下行数据终止接口-----'\n'",r.text)  
 
 #4.5添加终端设备
 def add_device(func,bodyStr):  
@@ -82,11 +88,14 @@ def get_appinfo(func,bodyStr,devEUI):
     print ("-----获取传感器应用数据-----'\n'",r.text)
 
 if __name__ == '__main__' :
+    
 #4.1用户登录获取token
     # login()    
 
+
 # 4.2刷新token
     # refresh_token(func=login()) 
+
 
 # 4.3自定义下行数据
     # k = 0
@@ -121,6 +130,13 @@ if __name__ == '__main__' :
     #     time.sleep(5)
 
 
+# 4.4自定义下行数据终止接口
+    # pyload = {"reference":"1547713693h3TbNtqu"}
+
+    # pyloads = json.dumps(pyload) 
+    # stop_downlink(func=add_headers(func=login(),send_method="DELETE",bodyStr=pyload,AppEUI="xxxxxxxxxxxxxxxx",AppSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),bodyStr=pyloads,devEUI="xxxxxxxxxxxxxxxx")
+
+
 #4.5添加设备：
     # pyload = {                                           
     #  "device_name":"测试",
@@ -142,19 +158,23 @@ if __name__ == '__main__' :
 
     # add_device(func=add_headers(func=login(),send_method="POST",bodyStr=pyload,AppEUI="xxxxxxxxxxxxxxxx",AppSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),bodyStr=pyloads)
 
+
 #4.6删除设备
     # pyloads = json.dumps(pyload)
     # delete_device(func=add_headers(func=login(),send_method="DELETE",bodyStr=pyload,AppEUI="xxxxxxxxxxxxxxxx",AppSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),bodyStr=pyloads,devEUI="xxxxxxxxxxxxxxxx")
+
 
 #4.7获取传感器基本信息
     # pyload = {}
     # pyloads = json.dumps(pyload)
     # get_deviceinfo(func=add_headers(func=login(),send_method="GET",bodyStr=pyload,AppEUI="xxxxxxxxxxxxxxxx",AppSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),bodyStr=pyloads,devEUI="xxxxxxxxxxxxxxxx")
 
+
 #4.8获取传感器数据列表
     # pyload = {}
     # pyloads = json.dumps(pyload)
     # get_devicelist(func=add_headers(func=login(),send_method="GET",bodyStr=pyload,AppEUI="xxxxxxxxxxxxxxxx",AppSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),bodyStr=pyloads)
+
 
 #4.9获取传感器应用数据
     pyload = {}
