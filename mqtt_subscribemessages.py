@@ -14,7 +14,7 @@ def client_loop():
     
 def on_connect(client,userdata,flags,rc):
     print("Connected with result code "+ str(rc))
-    client.subscribe("application/8cf9574000000000/node/8cf9574000000a6d/msg",0)    #subscribe(topic,qos)，qos根据用户需要进行选取，(qos=0最多一次，qos=1至少一次，qos=2有且只有一次）
+    client.subscribe("application/{appEUI}/node/{devEUI}/msg",0)    #subscribe(topic,qos)，qos根据用户需要进行选取，(qos=0最多一次，qos=1至少一次，qos=2有且只有一次）
 
 def on_message(lient,userdata,msg):
     print(msg.topic +"\n" + msg.payload.decode("utf-8"))
